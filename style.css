@@ -1,0 +1,149 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #dcdde6, #cfd2dc);
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 30px 20px;
+  color: #2c3e50;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+header p {
+  color: #555;
+}
+
+/* NAV */
+nav {
+  text-align: center;
+  padding: 12px;
+}
+
+nav a {
+  color: #2c3e50;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* CONTAINER */
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+  flex-wrap: wrap;
+}
+
+/* CARD */
+.card {
+  background: #e6e6eb;
+  padding: 25px;
+  width: 320px;
+  border-radius: 20px;
+  position: relative;
+
+  /* 🔥 PREMIUM SHADOW */
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.05);
+
+  transition: all 0.3s ease;
+}
+
+/* ✨ SOFT GLOW */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(120deg, rgba(255,255,255,0.4), transparent);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* 🔥 HOVER EFFECT */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.12),
+    0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* SMALL CARD */
+.small {
+  width: 300px;
+  text-align: center;
+}
+
+/* TITLE */
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* ICON */
+.icon {
+  background: #f2f2f7;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+/* INPUT */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f9f9fb;
+}
+
+/* BUTTON */
+button {
+  background: #2d74da;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 120px;
+
+  box-shadow: 0 4px 10px rgba(45, 116, 218, 0.3);
+}
+
+button:hover {
+  background: #1b5fc4;
+  box-shadow: 0 6px 15px rgba(45, 116, 218, 0.4);
+}
+
+/* RESULT */
+.result {
+  margin-top: 15px;
+  background: #dcd6e0;
+  padding: 10px;
+  border-left: 4px solid #2d74da;
+  border-radius: 6px;
+  white-space: pre-line;
+}
+
+/* LINKS */
+a {
+  color: #2d74da;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

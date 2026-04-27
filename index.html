@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TDS Tax Info</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>TDS Tax Info</h1>
+  <p>Smart Tax Dashboard</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="sections.html">Sections</a>
+  <a href="due-dates.html">Due Dates</a>
+</nav>
+
+<div class="container">
+
+<!-- AI -->
+<div class="card">
+  <h2 class="title"><span class="icon">🤖</span> AI Assistant</h2>
+  <input type="text" placeholder="Ask: TDS on rent">
+  <button>Ask</button>
+  <div class="result"></div>
+</div>
+
+<!-- HSN -->
+<div class="card">
+  <h2 class="title"><span class="icon">🔍</span> Ask HSN</h2>
+  <input type="text" id="hsn" placeholder="Enter HSN three digits">
+  <button onclick="findHSN()">Search</button>
+  <div id="hsnResult" class="result"></div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="card">
+  <h2 class="title"><span class="icon">📊</span> TDS Calculator</h2>
+
+  <label>Enter Basic Amount</label>
+  <input type="number" id="amount" placeholder="Enter amount before TDS">
+
+  <select id="section" onchange="updateOptions()"></select>
+
+  <div id="extraOptions"></div>
+
+  <select id="period">
+    <option value="monthly">Monthly</option>
+    <option value="yearly">Yearly</option>
+  </select>
+
+  <select id="pan">
+    <option value="yes">PAN Available</option>
+    <option value="no">No PAN (20%)</option>
+  </select>
+
+  <button onclick="calculateTDS()">Calculate</button>
+
+  <div id="result" class="result"></div>
+</div>
+
+</div>
+
+<!-- PLAN -->
+<div class="container center">
+  <div class="card small">
+    <h2 class="title"><span class="icon">💰</span> Plan</h2>
+    <p>Free Plan</p>
+    <button onclick="upgrade()">Upgrade</button>
+  </div>
+</div>
+
+<script src="database.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
