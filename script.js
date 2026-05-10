@@ -46,60 +46,122 @@ function updateOptions() {
 
 // CALCULATOR
 function calculateTDS() {
-  let amount = parseFloat(document.getElementById("amount").value);
-  let section = document.getElementById("section").value;
-  let period = document.getElementById("period").value;
-  let pan = document.getElementById("pan").value;
 
-  if (!amount || amount <= 0) return show("Enter valid amount");
+  let invoiceAmount =
+    parseFloat(document.getElementById("invoiceAmount").value);
 
-  if (!TDS_DATA[section]) return show("Invalid section");
+  let gstPercent =
+    parseFloat(document.getElementById("gstPercent").value) || 0;
+
+  let section =
+    document.getElementById("section").value;
+
+  let period =
+    document.getElementById("period").value;
+
+  let pan =
+    document.getElementById("pan").value;
+
+  if (!invoiceAmount || invoiceAmount <= 0)
+    return show("Enter valid invoice amount");
+
+  if (!TDS_DATA[section])
+    return show("Invalid section");
 
   let info = TDS_DATA[section];
-  let yearly = period === "monthly" ? amount * 12 : amount;
+
+  // ✅ GST INCLUDED IN INVOICE
+  let taxableAmount =
+    invoiceAmount / (1 + gstPercent / 100);
+
+  let gstAmount =
+    invoiceAmount - taxableAmount;
+
+  let yearly =
+    period === "monthly"
+      ? taxableAmount * 12
+      : taxableAmount;
 
   let rate = 0;
 
-  if (info.rate) rate = info.rate;
-  else if (info.rates) rate = Object.values(info.rates)[0];
+  // DEFAULT RATE
+  if (info.rate)
+    rate = info.rate;
 
+  else if (info.rates)
+    rate = Object.values(info.rates)[0];
+
+  // CONTRACTOR
   if (section === "194C") {
-    rate = info.rates[document.getElementById("deductee").value];
-    if (amount < 30000) return show("No TDS\nBelow ₹30,000");
+
+    rate =
+      info.rates[
+        document.getElementById("deductee").value
+      ];
+
+    if (taxableAmount < 30000)
+      return show("No TDS\nBelow ₹30,000");
   }
 
+  // PROFESSIONAL
   if (section === "194J") {
-    rate = info.rates[document.getElementById("type").value];
-    if (yearly < 30000) return show("No TDS\nBelow ₹30,000");
+
+    rate =
+      info.rates[
+        document.getElementById("type").value
+      ];
+
+    if (yearly < 50000)
+      return show("No TDS\nBelow ₹50,000");
   }
 
+  // COMMISSION
   if (section === "194H") {
-    if (yearly < 15000) return show("No TDS\nBelow ₹15,000");
+
+    if (yearly < 20000)
+      return show("No TDS\nBelow ₹20,000");
   }
 
+  // RENT
   if (section === "194I") {
-    rate = info.rates[document.getElementById("rentType").value];
 
-    if (period === "monthly" && amount < 50000)
+    rate =
+      info.rates[
+        document.getElementById("rentType").value
+      ];
+
+    if (
+      period === "monthly" &&
+      taxableAmount < 50000
+    )
       return show("No TDS\nMonthly rent below ₹50,000");
-
-    if (yearly < 240000)
-      return show("No TDS\nBelow ₹2,40,000");
   }
 
-  if (pan === "no") rate = 0.20;
+  // NO PAN
+  if (pan === "no")
+    rate = 0.20;
 
-  let tds = amount * rate;
-  let net = amount - tds;
+  let tds =
+    taxableAmount * rate;
+
+  let net =
+    invoiceAmount - tds;
 
   show(`
-Section       : ${info.name}
+Section           : ${info.name}
 
-Basic Amount  : ₹${amount}
-Rate          : ${rate * 100}%
+Invoice Amount    : ₹${invoiceAmount}
 
-TDS           : ₹${tds}
-Net Amount    : ₹${net}
+GST %             : ${gstPercent}%
+GST Amount        : ₹${gstAmount.toFixed(2)}
+
+Taxable Amount    : ₹${taxableAmount.toFixed(2)}
+
+Rate              : ${(rate * 100).toFixed(2)}%
+
+TDS               : ₹${tds.toFixed(2)}
+
+Net Payable       : ₹${net.toFixed(2)}
 `);
 }
 
@@ -110,28 +172,56 @@ function show(text) {
 
 // HSN SEARCH
 function findHSN() {
-  let input = document.getElementById("hsn").value.toLowerCase();
+
+  let input =
+    document.getElementById("hsn").value.trim();
+
+  // ✅ ONLY 4+ DIGITS
+  if (input.length < 4) {
+
+    document.getElementById("hsnResult").innerText =
+      "Enter minimum 4 digit HSN/SAC code";
+
+    return;
+  }
 
   let match = HSN_DATA.find(x =>
-    input.startsWith(x.code) ||
-    x.keywords.some(k => input.includes(k))
+    x.code.startsWith(input)
   );
 
   if (!match) {
-    document.getElementById("hsnResult").innerText = "No match found";
+
+    document.getElementById("hsnResult").innerText =
+      "No HSN/SAC match found";
+
     return;
   }
 
   let info = TDS_DATA[match.tds];
 
   if (!info) {
-    document.getElementById("hsnResult").innerText = "Mapping error";
+
+    document.getElementById("hsnResult").innerText =
+      "Section mapping missing";
+
     return;
   }
 
-  document.getElementById("section").value = match.tds;
-  updateOptions();
+  // AUTO SELECT SECTION
+  if (document.getElementById("section")) {
+    document.getElementById("section").value = match.tds;
+
+    if (typeof updateOptions === "function")
+      updateOptions();
+  }
 
   document.getElementById("hsnResult").innerText =
-    `HSN: ${match.desc} → ${info.name}`;
+
+`HSN/SAC : ${match.code}
+
+Nature  : ${match.desc}
+
+Type    : ${match.type}
+
+Section : ${info.name}`;
 }

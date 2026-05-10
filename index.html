@@ -20,14 +20,6 @@
 
 <div class="container">
 
-<!-- AI -->
-<div class="card">
-  <h2 class="title"><span class="icon">🤖</span> AI Assistant</h2>
-  <input type="text" placeholder="Ask: TDS on rent">
-  <button>Ask</button>
-  <div class="result"></div>
-</div>
-
 <!-- HSN -->
 <div class="card">
   <h2 class="title"><span class="icon">🔍</span> Ask HSN</h2>
@@ -38,10 +30,16 @@
 
 <!-- CALCULATOR -->
 <div class="card">
-  <h2 class="title"><span class="icon">📊</span> TDS Calculator</h2>
+  <h2 class="title">
+    <span class="icon">📊</span>
+    TDS Calculator
+  </h2>
 
-  <label>Enter Basic Amount</label>
-  <input type="number" id="amount" placeholder="Enter amount before TDS">
+  <label>Invoice Amount</label>
+  <input type="number" id="invoiceAmount" placeholder="Enter Invoice Amount">
+
+  <label>GST (%)</label>
+  <input type="number" id="gstPercent" placeholder="Enter GST %">
 
   <select id="section" onchange="updateOptions()"></select>
 
@@ -62,15 +60,6 @@
   <div id="result" class="result"></div>
 </div>
 
-</div>
-
-<!-- PLAN -->
-<div class="container center">
-  <div class="card small">
-    <h2 class="title"><span class="icon">💰</span> Plan</h2>
-    <p>Free Plan</p>
-    <button onclick="upgrade()">Upgrade</button>
-  </div>
 </div>
 
 <script src="database.js"></script>

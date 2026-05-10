@@ -33,13 +33,109 @@ const TDS_DATA = {
 };
 
 const HSN_DATA = [
-  { code: "9982", desc: "Professional Fees", tds: "194J", keywords: ["ca","legal"] },
-  { code: "9983", desc: "Technical Services", tds: "194J", keywords: ["consultant"] },
-  { code: "9954", desc: "Contractor", tds: "194C", keywords: ["construction"] },
-  { code: "9987", desc: "Contract Services", tds: "194C", keywords: ["contract"] },
-  { code: "9972", desc: "Rent (Building)", tds: "194I", keywords: ["rent"] },
-  { code: "9973", desc: "Rent (Plant)", tds: "194I", keywords: ["machine"] },
-  { code: "9961", desc: "Commission", tds: "194H", keywords: ["broker"] },
-  { code: "9971", desc: "Insurance Commission", tds: "194D", keywords: ["insurance"] },
-  { code: "any", desc: "Purchase of Goods", tds: "194Q", keywords: ["goods"] }
+
+  {
+    code: "99711",
+    desc: "Interest on Securities",
+    type: "Service",
+    tds: "193",
+    keywords: ["interest securities", "bond interest"]
+  },
+
+  {
+    code: "99711",
+    desc: "Dividend to Individual Shareholder",
+    type: "Service",
+    tds: "194",
+    keywords: ["dividend"]
+  },
+
+  {
+    code: "99711",
+    desc: "Interest other than Securities",
+    type: "Service",
+    tds: "194A",
+    keywords: ["bank interest", "interest"]
+  },
+
+  {
+    code: "9954",
+    desc: "Payment to Contractors / Sub-Contractors",
+    type: "Service",
+    tds: "194C",
+    keywords: ["contract", "construction", "maintenance"]
+  },
+
+  {
+    code: "9961",
+    desc: "Commission or Brokerage",
+    type: "Service",
+    tds: "194H",
+    keywords: ["commission", "brokerage", "broker"]
+  },
+
+  {
+    code: "99731",
+    desc: "Rent - Plant and Machinery",
+    type: "Service",
+    tds: "194I",
+    keywords: ["machine rent", "plant rent"]
+  },
+
+  {
+    code: "99721",
+    desc: "Rent - Land and Building",
+    type: "Service",
+    tds: "194I",
+    keywords: ["building rent", "office rent", "property rent"]
+  },
+
+  {
+    code: "9983",
+    desc: "Technical / Professional Services",
+    type: "Service",
+    tds: "194J",
+    keywords: ["consultant", "professional", "technical"]
+  },
+
+  {
+    code: "99839",
+    desc: "Business / Profession Perquisite or Benefit",
+    type: "Service",
+    tds: "194R",
+    keywords: ["benefit", "perquisite"]
+  },
+
+  {
+    code: "7204",
+    desc: "Sale of Scrap (Metal)",
+    type: "Goods",
+    tds: "206C(1)",
+    keywords: ["metal scrap"]
+  },
+
+  {
+    code: "3915",
+    desc: "Sale of Scrap (Plastic)",
+    type: "Goods",
+    tds: "206C(1)",
+    keywords: ["plastic scrap"]
+  },
+
+  {
+    code: "7404",
+    desc: "Sale of Scrap (Copper)",
+    type: "Goods",
+    tds: "206C(1)",
+    keywords: ["copper scrap"]
+  },
+
+  {
+    code: "general",
+    desc: "Purchase of Goods",
+    type: "Goods",
+    tds: "194Q",
+    keywords: ["goods purchase", "purchase"]
+  }
+
 ];
